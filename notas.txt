@@ -1,0 +1,23 @@
+Version DJango
+django==3.2.16
+
+ocultar claves y contraseña
+django-environ==0.9.0
+
+comunicacion con el frontend y el backend
+django-cors-headers==3.13.0
+
+nos permite crear Apis
+djangorestframework==3.14.0
+
+Para trabajar con imagenes
+Pillow==9.3.0
+
+Para guardar las imagenes en aws
+django-storages==1.13.1
+
+para editar tipo de letras ejemplo italic bold etc
+django-ckeditor==6.3.2
+
+Para trabajar con PQSGREL
+pyscopg==2.2.9.5
