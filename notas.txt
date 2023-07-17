@@ -1,0 +1,170 @@
+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
+
+
+
+Version DJango
+django==3.2.16
+
+ocultar claves y contraseña
+django-environ==0.9.0
+
+comunicacion con el frontend y el backend
+django-cors-headers==3.13.0
+
+nos permite crear Apis
+djangorestframework==3.14.0
+
+Para trabajar con imagenes
+Pillow==9.3.0
+
+Para guardar las imagenes en aws
+django-storages==1.13.1
+
+para editar tipo de letras ejemplo italic bold etc
+django-ckeditor==6.3.2
+
+Para trabajar con PQSGREL
+pyscopg==2.2.9.5
+
+**********************.Env*********************
+SECRET_KEY='@z1-t#9e8cof_2#231gr%hxkqmtpxf1!ir)1ckbkgpcx_6$3_e'
+DEBUG=True
+
+DATABASES_URL=''
+
+CORS_ORIGIN_WHITELIST_DEV="http://localhost:3000"
+CORS_ORIGIN_WHITELIST_DEPLOY= "https://boomslag.com"
+
+CSRF_TRUSTED_ORIGINS_DEPLOY='http://localhost:300'
+CSRF_TRUSTED_ORIGINS_DEV='https://boomslag.com'
+
+ALLOWED_HOSTS_DEV='*'
+ALLOWED_HOSTS_DEPLOY='murkiva.com','www.murkiva.com'
+
+**********************SETTINGS.PY***************
+os nos trae paquetes del servidor 
+operent system
+enviroment se usa para ocultar claves contraseñas
+env = environ.Env()
+environ.Env.read_env()
+
+SECRET_KEY = os.environ.get('SECRET_KEY')
+
+ALLOWED_HOSTS = env.list('ALLOWED_HOSTS_DEV')
+
+
+
+
+
+DJANGO_APPS = [
+    'django.contrib.admin',
+    'django.contrib.auth',
+    'django.contrib.contenttypes',
+    'django.contrib.sessions',
+    'django.contrib.messages',
+    'django.contrib.staticfiles',
+
+
+]
+
+PROYECT_APPS = [
+
+]
+
+THIRD_PARTY_APPS = [
+    'corsheaders',
+    'rest_framework',
+    'ckeditor',
+    'ckeditor_uploader'
+]
+
+INSTALLED_APPS = DJANGO_APPS + PROYECT_APPS + THIRD_PARTY_APPS
+CKEDITOR_CONFIGS = {
+    'default': {
+        'toolbar': 'Custom',
+        'toolbar_Custom': [
+            ['Bold', 'Italic', 'Underline'],
+            ['NumberedList', 'BulletedList', '-', 'Outdent', 'Indent', '-',
+                'JustifyLeft', 'JustifyCenter', 'JustifyRight', 'JustifyBlock'],
+            ['Link', 'Unlink'],
+            ['RemoveFormat', 'Source']
+        ],
+
+        'autoParagraph': False
+    }
+
+}
+
+CKEDITOR_UPLOAD_PATH = '/media/'
+
+TEMPLATES = [
+    {
+ 
+        'DIRS': [os.path.join(BASE_DIR, 'build')],
+}
+
+
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+MEDIA_URL = '/media/'
+
+# para crear usuario
+REST_FRAMEWORK = {
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.IsAuthenticateReadOnly'
+    ]
+}
+
+# indicamos que react puede acceder a la informacion
+CORS_ORIGIN_WHITELIST = env.list('CORS_ORIGIN_WHITELIST_DEV')
+CSRF_TRUSTED_ORIGINS = env.list('CSRF_TRUSTED_ORIGINS_DEV')
+
+#sirver para agregar email 
+cuando estamos en modo desarrollo
+EMAIL_BACKEND='django.core.mail.backends.console.EmailBackend'
+
+if not DEBUG:
+    ALLOWED_HOSTS = env.list('ALLOWED_HOSTS_DEPLOY')
+    CORS_ORIGIN_WHITELIST = env.list('CORS_ORIGIN_WHITELIST_DEPLOY')
+    CSRF_TRUSTED_ORIGINS = env.list('CSRF_TRUSTED_ORIGINS_DEPLOY')
+
+    DATABASES = {
+        "default": env.db("DATABASE_URL"),
+    }
+    DATABASES["default"]["ATOMIC_REQUESTS"] = True
+
+*****urls.py***********************
+
+from django.contrib import admin
+from django.urls import path
+from django.conf.urls.static import static
+from django.conf inpor settings
+
+urlpatterns = [
+    path('admin/', admin.site.urls),
+] +statuic(settings.MEDIA_URL, document_root=MEDIA_ROOT) ->para indicar la ruta de los archivos media
+
+
+
+********REACT*******************
+
+creamos el proyecto react
+vite@leaste
+
+antes npm run build
+
+ahora agregar nuestra template renderizada 
+en setting.py para que exista conexion
+
+TEMPLATES = [
+'DIRS':[os.path.join(BASE_DIR,'dist')]
+
+]
+
+ahora en urls.py
+from django.urls import path, re_path, include
+from django.contrib import admin
+from django.urls import path, re_path, include
+from django.views.generic import TemplateView
+from django.conf.urls.static import static
+from django.conf import settings
+en urlpatterns += [re_path(r'^.*', TemplateView.as_view(template_name='index.html'))]

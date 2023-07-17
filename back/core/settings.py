@@ -17,8 +17,16 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = os.environ.get('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.environ.get('DEBUG') 
-
 ALLOWED_HOSTS = env.list('ALLOWED_HOSTS_DEV')
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_HOST_USER = 'danduarte241@gmail.com'
+EMAIL_HOST_PASSWORD = 'dfdgzaguzvtkwnav'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+ACTIVE_CAMPAING_URL = "https://danduarte241.api-us1.com"
+ACTIVE_CAMPAING_KEY = "507c81819d3461b6969b3b2bfe12d6792aada9cdc8b7c9f748aa74f2dc2841ee25a7ae3a"
+
 
 
 # Application definition
@@ -34,7 +42,14 @@ DJANGO_INSTALL = [
 
     ]
 
-PROJECT_APP = []
+PROJECT_APP = [
+
+        'apps.blog',
+        'apps.category',
+        'apps.contact'
+
+
+        ]
 
 THIRD_PARTY_APPS = [
     'corsheaders',
@@ -48,22 +63,29 @@ INSTALLED_APPS = DJANGO_INSTALL + PROJECT_APP + THIRD_PARTY_APPS
 
 
 CKEDITOR_CONFIGS={
-  'default': {
-        'toolbar': 'Custom',
-        'toolbar_Custom': [
-            ['Bold', 'Italic', 'Underline'],
-            ['NumberedList', 'BulletedList', '-', 'Outdent', 'Indent', '-', 'JustifyLeft', 'JustifyCenter', 'JustifyRight', 'JustifyBlock'],
-            ['Link', 'Unlink'],
-            ['RemoveFormat', 'Source']
-        ],
+  #'default': {
+  #     'toolbar': 'Custom',
+  #      'toolbar_Custom': [
+  #          ['Bold', 'Italic', 'Underline'],
+  #          ['NumberedList', 'BulletedList', '-', 'Outdent', 'Indent', '-', 'JustifyLeft', 'JustifyCenter', 'JustifyRight', 'JustifyBlock'],
+  #          ['Link', 'Unlink'],
+  #          ['RemoveFormat', 'Source']
+  #     ],
+  #      'autoParagraph': False
+  #  }
+
+'default': {
+        'toolbar': 'full',
         'autoParagraph': False
     }
+	
 }
-CKEDITOR_UPLOAD_PATH = "/media/"
+CKEDITOR_UPLOAD_PATH = "media/"
 
         
 
 MIDDLEWARE = [
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -159,7 +181,14 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 #lo agregamos para cuando exista un usario que quiera ingresar se registre
 REST_FRAMEWORK = {
-    'DEFAULT_PERMISSION_CLASSES': [
+#'DEFAULT_AUTHENTICATION_CLASSES': (
+ #      'rest_framework.authentication.TokenAuthentication',
+  # ),
+   #'DEFAULT_PERMISSION_CLASSES': (
+    #    'rest_framework.permissions.IsAdminUser',
+  # ),
+
+     'DEFAULT_PERMISSION_CLASSES': [
         'rest_framework.permissions.IsAuthenticatedOrReadOnly'
     ],
 }

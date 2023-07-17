@@ -20,3 +20,34 @@
   background-size: 100% 3px;
   background-position: 0 100%;
 }
+
+
+/* width */
+::-webkit-scrollbar {
+    width: 10px;
+    z-index: -1;
+  }
+  
+/* Track */
+::-webkit-scrollbar-track {
+border-radius: 10px;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+background: #d8d8d8;
+opacity: 10px;
+border-radius: 10px;
+}
+/* Handle */
+::-webkit-scrollbar-thumb:hover{
+background: #c9c9c9;
+opacity: 10px;
+border-radius: 10px;
+}
+
+li {
+
+  list-style: none;
+
+}

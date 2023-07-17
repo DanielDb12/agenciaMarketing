@@ -1,6 +1,14 @@
 {
   "compilerOptions": {
-    "baseUrl": "src",
+    "baseUrl": "./",
+    "paths": {
+      "@container/*": ["src/container/*"],
+      "@hocs/*": ["src/hocs/*"],
+      "@components/*": ["src/components/*"],
+
+      "@style/*": ["src/style/*"],
+      "@redux/*": ["src/redux/*"]
+    },
     "target": "es5",
     "lib": ["dom", "dom.iterable", "esnext"],
     "allowJs": true,

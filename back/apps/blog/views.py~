@@ -1,0 +1,36 @@
+from unittest import result
+from django.core import paginator
+from django.shortcuts import render
+from rest_framework.response import Response
+from rest_framework import status
+from rest_framework import permissions
+from rest_framework.views import APIView
+
+from apps.blog.models import Post
+from apps.blog.pagination import SmallSetPagination
+from apps.blog.serilaizers import PostListSerializer
+
+
+class BigListView(APIView):
+    permission_classes = (permissions.AllowAny)
+
+    def get(self,request,format=None):
+        if Post.postobjects.all().exists():
+            posts = Post.postobjects.all()
+
+            paginator = SmallSetPagination()
+            results = paginator.paginate_queryset(posts, request)
+            serializer = PostListSerializer(results, many=True)
+
+            return paginator.get_paginated_response({'post': serializer.data})
+
+        else 
+            return Response({'error':'No post no found'}, status=status.HTTP_404_NOT_FOUND)
+
+class ListPostsByCategory(APIView):
+    permission_classes = (permissions.AllowAny,)
+    def get(self, request, format=None):
+        if Post.postobjects.all().exists():
+		slug = request.query_params.get('slug)
+                category = Category.objects.get(slug=slug)
+                
