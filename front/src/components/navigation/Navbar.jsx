@@ -28,7 +28,7 @@ export const Navbar = () => {
 	const [open,setOpen] = useState(false)
 
   return (
-    <nav id="navbar" className="w-full shadow-navbar py-2 bg-white  sticky top-0  ">
+    <nav id="navbar" className="w-full shadow-navbar py-2 bg-white  sticky top-0  z-[1000] ">
       <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
         <a href="https://flowbite.com/" className="flex items-center">
           <img src={img_logo} className="h-10 mr-3" alt="Flowbite Logo" />
@@ -47,7 +47,7 @@ export const Navbar = () => {
         </button>
 
         <div className="hidden w-full md:block md:w-auto" id="navbar-default">
-          <ul className="font-medium flex items-center flex-col p-4 md:p-0 mt-4 border border-gray-100 rounded-lg bg-gray-50 md:flex-row md:space-x-8 md:mt-0 md:border-0 md:bg-white dark:bg-gray-800 md:dark:bg-gray-900 dark:border-gray-700">
+          <ul className="font-medium flex items-center flex-col p-4 md:p-0 mt-4 border border-gray-100 rounded-lg bg-gray-50 md:flex-row md:space-x-8 md:mt-0 md:border-0 md:bg-white dark:bg-gray-800 md: dark:border-gray-700">
             <Link
               to="/"
               className="block py-2 pl-3 pr-4 text-white bg-blue-700 rounded md:bg-transparent md:text-blue-700 md:p-0 dark:text-white md:dark:text-blue-500"

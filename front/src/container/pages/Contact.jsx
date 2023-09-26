@@ -1,7 +1,7 @@
 
 import { connect } from "react-redux"
 import axios from "axios"
-import { MailIcon, PhoneIcon } from '@heroicons/react/24/outline'
+import {  PhoneIcon } from '@heroicons/react/24/outline'
 import { useEffect, useState } from "react"
 import { toast } from 'react-toastify'
 import  {Switch}  from '@headlessui/react'
